@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Laziz Pizza | Siradu — Artisanal 100% Pure Veg Pizzas</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fdf4f3',
+              100: '#fbe8e6',
+              500: '#e11d48',
+              600: '#be123c',
+              900: '#881337',
+              dark: '#1c1917',
+              cream: '#fafaf9',
+              gold: '#d97706',
+            }
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(28, 25, 23, 0.06)',
+            'elevated': '0 20px 50px -15px rgba(225, 29, 72, 0.15)',
+            'card': '0 4px 20px -2px rgba(28, 25, 23, 0.04)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    * { -webkit-tap-highlight-color: transparent; }
+    body { background-color: #fafaf9; color: #1c1917; }
+    
+    /* Smooth glass styling */
+    .glass-nav {
+      background: rgba(250, 250, 249, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    
+    .glass-modal {
+      background: rgba(28, 25, 23, 0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white pb-32 md:pb-16">
+
+  <!-- ==================== TOP ANNOUNCEMENT BAR ==================== -->
+  <div class="bg-brand-dark text-stone-300 text-xs py-2.5 px-4 font-medium tracking-wide">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Siradu Kitchen Live • Free Delivery on Orders above ₹499</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-6">
+        <a href="tel:9399979336" class="hover:text-white transition flex items-center gap-1.5">
+          <span>📞</span> 93999-79336
+        </a>
+        <span class="text-stone-600">|</span>
+        <span class="text-emerald-400 font-semibold">100% Pure Vegetarian</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PREMIUM NAVBAR ==================== -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-stone-200/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" onclick="resetView(event)" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-900 flex items-center justify-center text-white text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition duration-300">
+          🍕
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="font-serif font-bold text-xl tracking-tight text-stone-900">Laziz Pizza</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold tracking-wider uppercase border border-emerald-200">Pure Veg</span>
+          </div>
+          <span class="text-[11px] text-stone-500 font-medium tracking-wide">Siradu Production Kitchen</span>
+        </div>
+      </a>
+
+      <!-- Search Bar (Desktop) -->
+      <div class="hidden md:flex flex-1 max-w-md mx-8">
+        <div class="relative w-full">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
+            🔍
+          </span>
+          <input 
+            type="text" 
+            id="desktopSearchInput"
+            oninput="handleSearch(this.value)"
+            placeholder="Search Margherita, Burger, Pasta..." 
+            class="w-full pl-10 pr-4 py-2.5 bg-stone-100/80 border border-stone-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition"
+          />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <a 
+          href="tel:9399979336" 
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold text-xs tracking-wide transition border border-emerald-200/60 shadow-sm"
+        >
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+          <span>Call 9399979336</span>
+        </a>
+
+        <!-- Cart Trigger Button -->
+        <button 
+          onclick="toggleCartModal(true)"
+          class="relative flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-stone-900 hover:bg-brand-500 text-white font-medium text-sm transition-all duration-300 shadow-soft group"
+        >
+          <span class="text-base group-hover:rotate-12 transition-transform">🛒</span>
+          <span class="hidden sm:inline">My Tray</span>
+          <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-brand-500 text-white text-[11px] font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-md border-2 border-white scale-0 transition-transform duration-300">0</span>
+          <span id="cartTotalHeader" class="text-xs font-bold text-stone-300 group-hover:text-white pl-1 border-l border-stone-700">₹0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="md:hidden px-4 pb-3 pt-1 border-t border-stone-200/40 bg-white/50">
+      <div class="relative w-full">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400 text-sm">
+          🔍
+        </span>
+        <input 
+          type="text" 
+          oninput="handleSearch(this.value)"
+          placeholder="Search pizzas, burgers, shakes..." 
+          class="w-full pl-10 pr-4 py-2 bg-stone-100 border border-stone-200 rounded-full text-xs focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO BANNER ==================== -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-stone-900 to-stone-950 text-white py-14 px-4 sm:px-6 mb-8">
+    <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#e11d48_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="max-w-2xl text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30 text-xs font-semibold mb-4">
+          ✨ Artisanal Wood-Fired Crusts & Loaded Mozzarella
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-4">
+          Freshly Baked, <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-rose-400">100% Pure Veg</span> Delights.
+        </h1>
+        <p class="text-stone-400 text-sm sm:text-base max-w-lg mb-6 leading-relaxed">
+          Crafted with farm-fresh vegetables, signature Italian herbs, and our legendary liquid cheese burst. Order directly from Siradu Kitchen.
+        </p>
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
+          <a href="#menuSection" class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm shadow-elevated transition transform active:scale-95">
+            Explore Menu 🍕
+          </a>
+          <a href="tel:9399979336" class="px-6 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold text-sm transition border border-stone-700">
+            Direct Order: 9399979336
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Highlight Badge Card -->
+      <div class="relative w-full md:w-auto max-w-xs bg-stone-900/90 border border-stone-800 rounded-3xl p-6 shadow-2xl backdrop-blur-xl">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-14 h-14 rounded-2xl bg-brand-500/10 text-brand-500 flex items-center justify-center text-3xl">
+            🔥
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-lg text-white">Chef's Special Combo</h3>
+            <p class="text-xs text-stone-400">Save up to 25% on family feasts</p>
+          </div>
+        </div>
+        <div class="space-y-2 text-xs text-stone-300 border-t border-stone-800 pt-3">
+          <div class="flex justify-between">
+            <span>Regular Margherita + Veggie Supreme</span>
+            <span class="text-emerald-400 font-bold">₹299 Only</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Free Delivery & Cheese Dip</span>
+            <span class="text-brand-400 font-bold">Included</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CATEGORIES STICKY NAV ==================== -->
+  <div class="sticky top-20 z-30 bg-stone-50/95 backdrop-blur-md border-b border-stone-200/60 py-3 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div id="categoryTabsContainer" class="flex items-center gap-2.5 overflow-x-auto no-scrollbar scroll-smooth">
+        <!-- Generated dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN MENU CONTAINER ==================== -->
+  <main id="menuSection" class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full">
+    
+    <!-- Active Category Header & Filter status -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 id="activeCategoryTitle" class="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight">Veg Pizza</h2>
+        <p id="activeCategorySubtitle" class="text-xs sm:text-sm text-stone-500 mt-0.5">Freshly baked with rich tomato sauce and 100% pure cheese</p>
+      </div>
+      <div class="text-xs font-semibold text-stone-500 bg-stone-200/60 px-3 py-1.5 rounded-full">
+        <span id="itemCountDisplay">12</span> items available
+      </div>
+    </div>
+
+    <!-- Grid of Products -->
+    <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptySearchState" class="hidden text-center py-20">
+      <div class="text-5xl mb-3">🔍</div>
+      <h3 class="font-serif text-xl font-bold text-stone-800">No items found</h3>
+      <p class="text-sm text-stone-500 mt-1">Try searching for something else like "Burger", "Paneer", or "Margarita"</p>
+      <button onclick="resetSearch()" class="mt-4 px-5 py-2 rounded-xl bg-stone-900 text-white text-xs font-semibold">Clear Search</button>
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-stone-900 text-stone-400 text-xs py-12 px-4 sm:px-6 mt-16 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="w-8 h-8 rounded-xl bg-brand-500 flex items-center justify-center text-white text-sm">🍕</div>
+          <span class="font-serif font-bold text-base text-white">Laziz Pizza Siradu</span>
+        </div>
+        <p class="text-stone-400 leading-relaxed mb-4">
+          Serving piping hot, 100% pure vegetarian pizzas, starters, and shakes with premium ingredients and unmatched taste.
+        </p>
+        <div class="flex items-center gap-3">
+          <a href="tel:9399979336" class="w-9 h-9 rounded-xl bg-stone-800 hover:bg-brand-500 hover:text-white flex items-center justify-center transition">📞</a>
+          <a href="https://wa.me/919399979336" target="_blank" class="w-9 h-9 rounded-xl bg-stone-800 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition">💬</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-bold text-white text-sm mb-3">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#" onclick="switchCategory('VEG PIZZA', event)" class="hover:text-white transition">Veg Pizzas</a></li>
+          <li><a href="#" onclick="switchCategory('MUST TRY PREMIUM', event)" class="hover:text-white transition">Must Try Premium</a></li>
+          <li><a href="#" onclick="switchCategory('VEG BURGER', event)" class="hover:text-white transition">Veg Burgers</a></li>
+          <li><a href="#" onclick="switchCategory('COMBO OFFERS', event)" class="hover:text-white transition">Combo Offers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-white text-sm mb-3">Kitchen Hours</h4>
+        <p class="mb-2">Monday – Sunday</p>
+        <p class="text-white font-medium mb-3">10:00 AM – 11:30 PM</p>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-950 text-emerald-400 border border-emerald-800 font-semibold text-[11px]">
+          🟢 Open & Accepting Orders
+        </div>
+      </div>
+      <div>
+        <h4 class="font-bold text-white text-sm mb-3">Direct Contact</h4>
+        <p class="mb-1">Siradu Kitchen Hotline:</p>
+        <a href="tel:9399979336" class="text-white font-bold text-base hover:underline block mb-3">+91 93999-79336</a>
+        <p class="text-[11px] text-stone-500">100% Pure Veg Guaranteed. Prepared fresh upon order.</p>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-stone-500">
+      <p>© 2026 Laziz Pizza - Siradu Production. All rights reserved.</p>
+      <p class="mt-2 sm:mt-0">Crafted with ❤️ for Pizza Lovers</p>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING CART BAR (MOBILE) ==================== -->
+  <div id="mobileCartBar" class="fixed bottom-0 inset-x-0 z-40 bg-stone-900/95 backdrop-blur-lg border-t border-stone-800 p-4 transition-transform duration-300 transform translate-y-full md:hidden shadow-2xl">
+    <div class="max-w-md mx-auto flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-500 text-white font-bold flex items-center justify-center text-sm" id="mobileCartCount">0</div>
+        <div>
+          <div class="text-white text-xs font-bold" id="mobileCartItemsTitle">Your Tray</div>
+          <div class="text-brand-400 text-sm font-extrabold" id="mobileCartTotal">₹0</div>
+        </div>
+      </div>
+      <button 
+        onclick="toggleCartModal(true)"
+        class="px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs tracking-wide shadow-lg transition active:scale-95"
+      >
+        View Tray & Checkout →
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== CUSTOMIZATION & SIZE MODAL ==================== -->
+  <div id="customizeModal" class="fixed inset-0 z-50 glass-modal hidden flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
+    <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col transform transition-transform duration-300 animate-in fade-in slide-in-from-bottom duration-200">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-stone-100 flex items-center justify-between bg-stone-50/80">
+        <div>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase">100% Pure Veg</span>
+          <h3 id="modalItemTitle" class="font-serif font-bold text-xl text-stone-900 mt-1">Item Title</h3>
+        </div>
+        <button onclick="closeCustomizeModal()" class="w-9 h-9 rounded-full bg-stone-200/80 hover:bg-stone-300 flex items-center justify-center text-stone-700 transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 overflow-y-auto space-y-6">
+        <p id="modalItemDesc" class="text-xs text-stone-500 leading-relaxed"></p>
+
+        <!-- Size & Cheese Burst Selector Matrix -->
+        <div>
+          <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">Select Size & Crust Variant</label>
+          <div id="modalSizeGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Extra Toppings Optional -->
+        <div>
+          <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">Add Extra Toppings & Dips</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-2.5 p-3 rounded-xl border border-stone-200 hover:border-brand-500 cursor-pointer transition bg-stone-50/50">
+              <input type="checkbox" name="addon" value="Extra Cheese" data-price="40" onchange="updateModalTotal()" class="accent-brand-500 rounded w-4 h-4" />
+              <div class="text-xs">
+                <div class="font-bold text-stone-800">Extra Cheese</div>
+                <div class="text-stone-400">+₹40</div>
+              </div>
+            </label>
+            <label class="flex items-center gap-2.5 p-3 rounded-xl border border-stone-200 hover:border-brand-500 cursor-pointer transition bg-stone-50/50">
+              <input type="checkbox" name="addon" value="Paneer Cubes" data-price="50" onchange="updateModalTotal()" class="accent-brand-500 rounded w-4 h-4" />
+              <div class="text-xs">
+                <div class="font-bold text-stone-800">Paneer Cubes</div>
+                <div class="text-stone-400">+₹50</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Special Cooking Instructions -->
+        <div>
+          <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">Cooking Instructions (Optional)</label>
+          <input type="text" id="modalInstructions" placeholder="e.g. Make it extra spicy, less onions..." class="w-full px-4 py-2.5 bg-stone-100 border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-brand-500" />
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 sm:p-5 border-t border-stone-100 bg-stone-50 flex items-center justify-between gap-4">
+        <div>
+          <span class="text-[10px] text-stone-400 block uppercase font-bold">Total Price</span>
+          <span id="modalTotalPrice" class="font-serif font-extrabold text-2xl text-stone-900">₹119</span>
+        </div>
+        <button 
+          onclick="addCustomizedItemToCart()"
+          class="flex-1 max-w-xs py-3.5 px-6 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm shadow-lg transition active:scale-95 text-center"
+        >
+          Add to Tray 🛒
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== CART / CHECKOUT DRAWER ==================== -->
+  <div id="cartModal" class="fixed inset-0 z-50 glass-modal hidden flex justify-end transition-opacity">
+    <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full" id="cartDrawerContent">
+      
+      <!-- Cart Header -->
+      <div class="p-5 border-b border-stone-200 flex items-center justify-between bg-stone-50">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🛒</span>
+          <h3 class="font-serif font-bold text-lg text-stone-900">Your Food Tray</h3>
+        </div>
+        <button onclick="toggleCartModal(false)" class="w-8 h-8 rounded-full bg-stone-200 hover:bg-stone-300 flex items-center justify-center text-stone-700 transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div id="cartItemsList" class="flex-1 overflow-y-auto p-5 space-y-4">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Cart Summary & Checkout Details -->
+      <div class="p-5 border-t border-stone-200 bg-stone-50 space-y-4">
+        
+        <!-- Promo Code Input -->
+        <div class="flex gap-2">
+          <input type="text" id="promoCodeInput" placeholder="Promo code (e.g. LAZIZ50)" class="flex-1 px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs uppercase font-semibold focus:outline-none focus:border-brand-500" />
+          <button onclick="applyPromoCode()" class="px-4 py-2 bg-stone-900 hover:bg-brand-500 text-white rounded-xl text-xs font-bold transition">Apply</button>
+        </div>
+        <div id="promoMessage" class="text-[11px] font-medium text-emerald-600 hidden"></div>
+
+        <!-- Bill Details -->
+        <div class="space-y-1.5 text-xs text-stone-600 border-t border-stone-200 pt-3">
+          <div class="flex justify-between">
+            <span>Item Total</span>
+            <span id="cartSubtotal" class="font-semibold text-stone-900">₹0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Delivery Charges (Siradu)</span>
+            <span class="text-emerald-600 font-semibold">FREE</span>
+          </div>
+          <div id="discountRow" class="flex justify-between text-emerald-600 hidden">
+            <span>Promo Discount</span>
+            <span id="cartDiscountAmt">-₹0</span>
+          </div>
+          <div class="flex justify-between text-sm font-extrabold text-stone-900 border-t border-stone-200 pt-2 mt-2">
+            <span>Grand Total</span>
+            <span id="cartGrandTotal">₹0</span>
+          </div>
+        </div>
+
+        <!-- Customer Details Form -->
+        <div class="space-y-2 pt-2 border-t border-stone-200">
+          <input type="text" id="customerName" placeholder="Your Full Name *" class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-brand-500" />
+          <input type="tel" id="customerPhone" placeholder="Mobile Number (for delivery updates) *" class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-brand-500" />
+          <textarea id="customerAddress" placeholder="Delivery Address in Siradu / Area *" rows="2" class="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs focus:outline-none focus:border-brand-500 resize-none"></textarea>
+        </div>
+
+        <!-- Checkout Actions -->
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <button 
+            onclick="checkoutOrder('whatsapp')"
+            class="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5 active:scale-95"
+          >
+            <span>💬 WhatsApp Order</span>
+          </button>
+          <button 
+            onclick="checkoutOrder('call')"
+            class="py-3 px-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5 active:scale-95"
+          >
+            <span>📞 Direct Call</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== TOAST NOTIFICATION ==================== -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-stone-900 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-stone-800 text-xs font-semibold">
+      <span id="toastIcon" class="text-base">✨</span>
+      <span id="toastMessage">Item added to tray successfully</span>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT APP LOGIC ==================== -->
+  <script>
+    // Complete Menu Data for Laziz Pizza - Siradu Kitchen
+    const categories = [
+      { id: "VEG PIZZA", name: "Veg Pizza", icon: "🍕", subtitle: "Freshly baked with rich sauce and 100% pure cheese" },
+      { id: "VEG STARTERS", name: "Veg Starters", icon: "🍟", subtitle: "Crispy, golden, and loaded with spices" },
+      { id: "MUST TRY PREMIUM", name: "Must Try Premium", icon: "⭐", subtitle: "Chef's special gourmet creations" },
+      { id: "VEG BURGER", name: "Veg Burger", icon: "🍔", subtitle: "Juicy patties with fresh lettuce and secret sauces" },
+      { id: "PASTA", name: "Pasta", icon: "🍝", subtitle: "Tossed in creamy white or tangy red arrabbiata sauce" },
+      { id: "SANDWICHES", name: "Sandwiches", icon: "🥪", subtitle: "Toasted breads stuffed with spiced vegetables and cheese" },
+      { id: "SHAKES", name: "Shakes", icon: "🥤", subtitle: "Thick, rich, and refreshing milkshakes" },
+      { id: "COMBO OFFERS", name: "Combo Offers", icon: "🍱", subtitle: "Value meals for individuals and families" }
+    ];
+
+    // Menu Items Dataset (12 Pizzas + Starters + Burgers + Pastas + Shakes + Combos)
+    const menuItems = [
+      // --- VEG PIZZA ---
+      {
+        id: "p1",
+        category: "VEG PIZZA",
+        name: "Margarita Pizza",
+        desc: "Simple tomato sauce & loaded cheese",
+        image: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 229, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "Classic"
+      },
+      {
+        id: "p2",
+        category: "VEG PIZZA",
+        name: "Peri Peri Margarita",
+        desc: "3 type cheese with peri peri spice",
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 229, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "Spicy 🔥"
+      },
+      {
+        id: "p3",
+        category: "VEG PIZZA",
+        name: "Scezwan Pizza",
+        desc: "Topping in Scezwan sauce and loaded cheese",
+        image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 285, XL: 395, "S (CB)": 167, "H (CB)": 2245, "L (CB)": 366, "XL (CB)": 476 },
+        badge: "Popular"
+      },
+      {
+        id: "p4",
+        category: "VEG PIZZA",
+        name: "Mexican Salsa",
+        desc: "Pizza in salsa sauce toppings with loaded cheese",
+        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: ""
+      },
+      {
+        id: "p5",
+        category: "VEG PIZZA",
+        name: "Veg Paprika",
+        desc: "Tikka paneer, sweet corn, paprika, Capsicum, cheese",
+        image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "Bestseller"
+      },
+      {
+        id: "p6",
+        category: "VEG PIZZA",
+        name: "Veg Carnival",
+        desc: "All veggies with loaded cheese",
+        image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: ""
+      },
+      {
+        id: "p7",
+        category: "VEG PIZZA",
+        name: "Four Season",
+        desc: "4 type Veggies with loaded cheese",
+        image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: ""
+      },
+      {
+        id: "p8",
+        category: "VEG PIZZA",
+        name: "Laziz Desi",
+        desc: "Desi Veggies with loaded cheese",
+        image: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "Signature"
+      },
+      {
+        id: "p9",
+        category: "VEG PIZZA",
+        name: "Tikka Paneer",
+        desc: "Tikka paneer, Onion, Capsicum with loaded cheese",
+        image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "Paneer"
+      },
+      {
+        id: "p10",
+        category: "VEG PIZZA",
+        name: "Veg Mexican",
+        desc: "R/Y/G Capsicum, Paprika, Onion, Jalapenos with loaded cheese",
+        image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "Spicy 🔥"
+      },
+      {
+        id: "p11",
+        category: "VEG PIZZA",
+        name: "Veg Fajita Pizza",
+        desc: "Diced Veggies in thin crust with loaded cheese",
+        image: "https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: ""
+      },
+      {
+        id: "p12",
+        category: "VEG PIZZA",
+        name: "Chefs Special",
+        desc: "Paneer, Mushroom, Onion, Capsicum, Corn, Jalapenos with loaded cheese",
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 119, H: 179, L: 289, XL: 399, "S (CB)": 169, "H (CB)": 224, "L (CB)": 369, "XL (CB)": 479 },
+        badge: "👑 Top Pick"
+      },
+
+      // --- VEG STARTERS ---
+      {
+        id: "s1",
+        category: "VEG STARTERS",
+        name: "Cheesy Garlic Bread",
+        desc: "Freshly baked garlic bread topped with melted mozzarella and herbs",
+        image: "https://images.unsplash.com/photo-1619531003755-46755435520e?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 129, Large: 199 },
+        badge: "Bestseller"
+      },
+      {
+        id: "s2",
+        category: "VEG STARTERS",
+        name: "Peri Peri French Fries",
+        desc: "Crispy golden potato fries tossed in spicy peri peri seasoning",
+        image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 99, Large: 149 },
+        badge: ""
+      },
+      {
+        id: "s3",
+        category: "VEG STARTERS",
+        name: "Stuffed Garlic Breadsticks",
+        desc: "Oven baked breadsticks stuffed with corn, jalapenos and liquid cheese",
+        image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 159 },
+        badge: "Popular"
+      },
+
+      // --- MUST TRY PREMIUM ---
+      {
+        id: "m1",
+        category: "MUST TRY PREMIUM",
+        name: "Tandoori Paneer Supreme Pizza",
+        desc: "Loaded with tandoori marinated paneer, capsicum, red onion and smoked cheese",
+        image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 169, H: 249, L: 399, XL: 549, "S (CB)": 219, "H (CB)": 299, "L (CB)": 479, "XL (CB)": 629 },
+        badge: "Chef Choice"
+      },
+      {
+        id: "m2",
+        category: "MUST TRY PREMIUM",
+        name: "Laziz Royal Feast Pizza",
+        desc: "Double cheese burst crust topped with olives, mushrooms, baby corn and exotic herbs",
+        image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80",
+        prices: { S: 189, H: 279, L: 449, XL: 599, "S (CB)": 239, "H (CB)": 329, "L (CB)": 529, "XL (CB)": 679 },
+        badge: "👑 Royal"
+      },
+
+      // --- VEG BURGER ---
+      {
+        id: "b1",
+        category: "VEG BURGER",
+        name: "Crispy Veg Burger",
+        desc: "Crunchy potato & vegetable patty with lettuce, creamy mayo and toasted buns",
+        image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 89 },
+        badge: "Value"
+      },
+      {
+        id: "b2",
+        category: "VEG BURGER",
+        name: "Paneer Maharaja Burger",
+        desc: "Thick grilled paneer patty loaded with tandoori sauce and cheese slice",
+        image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 149 },
+        badge: "Bestseller"
+      },
+
+      // --- PASTA ---
+      {
+        id: "pa1",
+        category: "PASTA",
+        name: "Creamy White Sauce Pasta",
+        desc: "Penne pasta tossed in rich garlic cream sauce with bell peppers and olives",
+        image: "https://images.unsplash.com/photo-1621996346565-e3d5d6281297?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 179 },
+        badge: "Creamy"
+      },
+      {
+        id: "pa2",
+        category: "PASTA",
+        name: "Tangy Red Arrabbiata Pasta",
+        desc: "Penne pasta in spicy Italian tomato herb sauce with herbs and cheese",
+        image: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 169 },
+        badge: "Spicy"
+      },
+
+      // --- SANDWICHES ---
+      {
+        id: "sw1",
+        category: "SANDWICHES",
+        name: "Bombay Masala Grilled Sandwich",
+        desc: "Spiced potato masala, cucumbers, tomatoes, green chutney and melted cheese",
+        image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 119 },
+        badge: "Popular"
+      },
+
+      // --- SHAKES ---
+      {
+        id: "sh1",
+        category: "SHAKES",
+        name: "Rich Belgian Chocolate Shake",
+        desc: "Thick milkshake blended with premium chocolate syrup and chocolate shavings",
+        image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 129 },
+        badge: "Refreshing"
+      },
+      {
+        id: "sh2",
+        category: "SHAKES",
+        name: "Oreo Cookie Crumble Shake",
+        desc: "Creamy vanilla shake crushed with Oreo cookies and topped with whipped cream",
+        image: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 139 },
+        badge: "Sweet"
+      },
+
+      // --- COMBO OFFERS ---
+      {
+        id: "co1",
+        category: "COMBO OFFERS",
+        name: "Solo Feast Combo",
+        desc: "1 Regular Veg Pizza + 1 French Fries + 1 Chocolate Shake",
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 299 },
+        badge: "Save ₹70"
+      },
+      {
+        id: "co2",
+        category: "COMBO OFFERS",
+        name: "Family Party Combo",
+        desc: "2 Medium Pizzas + 1 Garlic Bread + 1 Large French Fries + 1.5L Cold Drink",
+        image: "https://images.unsplash.com/photo-1590947132387-155cc02f3212?auto=format&fit=crop&w=600&q=80",
+        prices: { Regular: 699 },
+        badge: "Best Value"
+      }
+    ];
+
+    // Application State
+    let activeCategory = "VEG PIZZA";
+    let searchQuery = "";
+    let cart = [];
+    let appliedDiscount = 0;
+    let currentModalItem = null;
+    let modalSelectedSize = null;
+
+    // Initialize application on load
+    window.onload = function() {
+      renderCategoryTabs();
+      renderProducts();
+      updateCartUI();
+    };
+
+    // Render Category Tabs
+    function renderCategoryTabs() {
+      const container = document.getElementById("categoryTabsContainer");
+      container.innerHTML = categories.map(cat => {
+        const isActive = cat.id === activeCategory && !searchQuery;
+        return `
+          <button 
+            onclick="switchCategory('${cat.id}', event)"
+            class="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all duration-300 whitespace-nowrap border ${
+              isActive 
+                ? 'bg-stone-900 text-white border-stone-900 shadow-md' 
+                : 'bg-white hover:bg-stone-100 text-stone-700 border-stone-200'
+            }"
+          >
+            <span>${cat.icon}</span>
+            <span>${cat.name}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Switch Category
+    function switchCategory(catId, e) {
+      if (e) e.preventDefault();
+      activeCategory = catId;
+      searchQuery = "";
+      if (document.getElementById("desktopSearchInput")) {
+        document.getElementById("desktopSearchInput").value = "";
+      }
+      
+      const catObj = categories.find(c => c.id === catId);
+      if (catObj) {
+        document.getElementById("activeCategoryTitle").innerText = catObj.name;
+        document.getElementById("activeCategorySubtitle").innerText = catObj.subtitle;
+      }
+
+      renderCategoryTabs();
+      renderProducts();
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+
+    // Handle Search Input
+    function handleSearch(query) {
+      searchQuery = query.trim().toLowerCase();
+      renderProducts();
+    }
+
+    function resetSearch() {
+      searchQuery = "";
+      if (document.getElementById("desktopSearchInput")) {
+        document.getElementById("desktopSearchInput").value = "";
+      }
+      renderProducts();
+    }
+
+    // Render Product Cards
+    function renderProducts() {
+      const grid = document.getElementById("productGrid");
+      const emptyState = document.getElementById("emptySearchState");
+      
+      let filtered = menuItems;
+      if (searchQuery) {
+        filtered = menuItems.filter(item => 
+          item.name.toLowerCase().includes(searchQuery) || 
+          item.desc.toLowerCase().includes(searchQuery) ||
+          item.category.toLowerCase().includes(searchQuery)
+        );
+        document.getElementById("activeCategoryTitle").innerText = `Search Results for "${searchQuery}"`;
+        document.getElementById("activeCategorySubtitle").innerText = `Found ${filtered.length} matching items`;
+      } else {
+        filtered = menuItems.filter(item => item.category === activeCategory);
+        const catObj = categories.find(c => c.id === activeCategory);
+        if (catObj) {
+          document.getElementById("activeCategoryTitle").innerText = catObj.name;
+          document.getElementById("activeCategorySubtitle").innerText = catObj.subtitle;
+        }
+      }
+
+      document.getElementById("itemCountDisplay").innerText = filtered.length;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        emptyState.classList.remove("hidden");
+        return;
+      }
+
+      emptyState.classList.add("hidden");
+
+      grid.innerHTML = filtered.map(item => {
+        const pricesKeys = Object.keys(item.prices);
+        const minPrice = Math.min(...Object.values(item.prices));
+        const isPizza = item.category === "VEG PIZZA" || item.category === "MUST TRY PREMIUM";
+
+        return `
+          <div class="bg-white rounded-3xl border border-stone-200/80 shadow-card hover:shadow-soft transition-all duration-300 flex flex-col overflow-hidden group">
+            
+            <!-- Card Image & Badge -->
+            <div class="relative h-48 bg-stone-100 overflow-hidden">
+              <img 
+                src="${item.image}" 
+                alt="${item.name}" 
+                onerror="this.src='https://placehold.co/600x400/1c1917/ffffff?text=Laziz+Pizza'"
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent"></div>
+              
+              ${item.badge ? `
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-stone-900/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider border border-white/10">
+                  ${item.badge}
+                </span>
+              ` : ''}
+
+              <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider shadow">
+                100% Veg
+              </span>
+
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
+                <div>
+                  <span class="text-[10px] text-stone-300 uppercase tracking-wider block font-medium">Starts From</span>
+                  <span class="font-serif font-extrabold text-lg">₹${minPrice}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Content -->
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-serif font-bold text-lg text-stone-900 group-hover:text-brand-500 transition">${item.name}</h3>
+                <p class="text-xs text-stone-500 mt-1 line-clamp-2 leading-relaxed">${item.desc}</p>
+              </div>
+
+              <div class="mt-5 pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
+                ${isPizza ? `
+                  <button 
+                    onclick="openCustomizeModal('${item.id}')"
+                    class="w-full py-2.5 px-4 rounded-xl bg-stone-900 hover:bg-brand-500 text-white text-xs font-bold transition shadow-sm flex items-center justify-center gap-2"
+                  >
+                    <span>Select Size & Customize</span>
+                    <span>→</span>
+                  </button>
+                ` : `
+                  <div class="flex items-center gap-1">
+                    <span class="text-xs text-stone-400 font-medium">Price:</span>
+                    <span class="font-bold text-sm text-stone-900">₹${item.prices.Regular || minPrice}</span>
+                  </div>
+                  <button 
+                    onclick="quickAddSimpleItem('${item.id}')"
+                    class="py-2 px-5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold transition shadow-sm active:scale-95"
+                  >
+                    + Add
+                  </button>
+                `}
+              </div>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Open Customization Modal for Pizzas
+    function openCustomizeModal(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if (!item) return;
+
+      currentModalItem = item;
+      document.getElementById("modalItemTitle").innerText = item.name;
+      document.getElementById("modalItemDesc").innerText = item.desc;
+      document.getElementById("modalInstructions").value = "";
+
+      // Uncheck all addons
+      document.querySelectorAll('input[name="addon"]').forEach(cb => cb.checked = false);
+
+      const sizeGrid = document.getElementById("modalSizeGrid");
+      const sizes = Object.keys(item.prices);
+      modalSelectedSize = sizes[0]; // Default first size
+
+      sizeGrid.innerHTML = sizes.map((sizeKey, idx) => {
+        const price = item.prices[sizeKey];
+        const isSelected = idx === 0;
+        return `
+          <button 
+            type="button"
+            onclick="selectModalSize('${sizeKey}')"
+            id="sizeBtn-${sizeKey}"
+            class="p-3 rounded-2xl border text-center transition flex flex-col items-center justify-center ${
+              isSelected 
+                ? 'border-brand-500 bg-brand-50 text-brand-900 ring-2 ring-brand-500/20' 
+                : 'border-stone-200 hover:border-stone-300 bg-white text-stone-800'
+            }"
+          >
+            <span class="text-xs font-bold uppercase">${sizeKey}</span>
+            <span class="text-xs font-extrabold mt-1">₹${price}</span>
+          </button>
+        `;
+      }).join('');
+
+      updateModalTotal();
+      document.getElementById("customizeModal").classList.remove("hidden");
+    }
+
+    function selectModalSize(sizeKey) {
+      modalSelectedSize = sizeKey;
+      const item = currentModalItem;
+      const sizes = Object.keys(item.prices);
+
+      sizes.forEach(s => {
+        const btn = document.getElementById(`sizeBtn-${s}`);
+        if (btn) {
+          if (s === sizeKey) {
+            btn.className = "p-3 rounded-2xl border text-center transition flex flex-col items-center justify-center border-brand-500 bg-brand-50 text-brand-900 ring-2 ring-brand-500/20";
+          } else {
+            btn.className = "p-3 rounded-2xl border text-center transition flex flex-col items-center justify-center border-stone-200 hover:border-stone-300 bg-white text-stone-800";
+          }
+        }
+      });
+
+      updateModalTotal();
+    }
+
+    function updateModalTotal() {
+      if (!currentModalItem) return;
+      let basePrice = currentModalItem.prices[modalSelectedSize] || 0;
+      
+      let addonsTotal = 0;
+      document.querySelectorAll('input[name="addon"]:checked').forEach(cb => {
+        addonsTotal += parseInt(cb.getAttribute("data-price") || 0);
+      });
+
+      const total = basePrice + addonsTotal;
+      document.getElementById("modalTotalPrice").innerText = `₹${total}`;
+    }
+
+    function closeCustomizeModal() {
+      document.getElementById("customizeModal").classList.add("hidden");
+      currentModalItem = null;
+    }
+
+    function addCustomizedItemToCart() {
+      if (!currentModalItem) return;
+
+      const basePrice = currentModalItem.prices[modalSelectedSize];
+      let addonsTotal = 0;
+      let selectedAddons = [];
+      document.querySelectorAll('input[name="addon"]:checked').forEach(cb => {
+        addonsTotal += parseInt(cb.getAttribute("data-price") || 0);
+        selectedAddons.push(cb.value);
+      });
+
+      const unitPrice = basePrice + addonsTotal;
+      const instructions = document.getElementById("modalInstructions").value.trim();
+
+      const cartItem = {
+        uniqueKey: `${currentModalItem.id}-${modalSelectedSize}-${selectedAddons.join('-')}`,
+        id: currentModalItem.id,
+        name: currentModalItem.name,
+        size: modalSelectedSize,
+        addons: selectedAddons,
+        instructions: instructions,
+        unitPrice: unitPrice,
+        quantity: 1,
+        image: currentModalItem.image
+      };
+
+      const existingIndex = cart.findIndex(i => i.uniqueKey === cartItem.uniqueKey);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push(cartItem);
+      }
+
+      closeCustomizeModal();
+      updateCartUI();
+      showToast(`Added ${currentModalItem.name} (${modalSelectedSize}) to tray! 🍕`);
+    }
+
+    // Quick Add for non-pizza items (Burgers, Shakes, etc.)
+    function quickAddSimpleItem(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if (!item) return;
+
+      const price = item.prices.Regular || Object.values(item.prices)[0];
+      const cartItem = {
+        uniqueKey: `${item.id}-Regular`,
+        id: item.id,
+        name: item.name,
+        size: "Regular",
+        addons: [],
+        instructions: "",
+        unitPrice: price,
+        quantity: 1,
+        image: item.image
+      };
+
+      const existingIndex = cart.findIndex(i => i.uniqueKey === cartItem.uniqueKey);
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+      } else {
+        cart.push(cartItem);
+      }
+
+      updateCartUI();
+      showToast(`Added ${item.name} to tray!`);
+    }
+
+    // Update Cart UI
+    function updateCartUI() {
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      const subtotal = cart.reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0);
+      const grandTotal = Math.max(0, subtotal - appliedDiscount);
+
+      // Header Badge
+      const badge = document.getElementById("cartBadge");
+      const headerTotal = document.getElementById("cartTotalHeader");
+      if (count > 0) {
+        badge.innerText = count;
+        badge.classList.remove("scale-0");
+        headerTotal.innerText = `₹${subtotal}`;
+      } else {
+        badge.classList.add("scale-0");
+        headerTotal.innerText = "₹0";
+      }
+
+      // Mobile Floating Bar
+      const mobileBar = document.getElementById("mobileCartBar");
+      const mobileCount = document.getElementById("mobileCartCount");
+      const mobileTotal = document.getElementById("mobileCartTotal");
+      if (count > 0) {
+        mobileBar.classList.remove("translate-y-full");
+        mobileCount.innerText = count;
+        mobileTotal.innerText = `₹${grandTotal}`;
+      } else {
+        mobileBar.classList.add("translate-y-full");
+      }
+
+      // Cart Drawer List
+      const listEl = document.getElementById("cartItemsList");
+      if (cart.length === 0) {
+        listEl.innerHTML = `
+          <div class="text-center py-16 text-stone-400">
+            <div class="text-4xl mb-2">🛒</div>
+            <p class="text-sm font-semibold">Your food tray is empty</p>
+            <p class="text-xs mt-1">Add some delicious pizzas or starters to begin!</p>
+          </div>
+        `;
+      } else {
+        listEl.innerHTML = cart.map((item, idx) => `
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-stone-50 border border-stone-200/60">
+            <img src="${item.image}" class="w-14 h-14 rounded-xl object-cover" />
+            <div class="flex-1">
+              <h4 class="font-serif font-bold text-sm text-stone-900">${item.name}</h4>
+              <div class="text-[11px] text-stone-500">
+                Size: <span class="font-semibold text-stone-700">${item.size}</span>
+                ${item.addons.length > 0 ? `<br/>Addons: ${item.addons.join(', ')}` : ''}
+              </div>
+              <div class="font-bold text-xs text-brand-500 mt-1">₹${item.unitPrice * item.quantity}</div>
+            </div>
+            <div class="flex items-center gap-2 bg-white px-2 py-1 rounded-xl border border-stone-200">
+              <button onclick="changeQuantity(${idx}, -1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 font-bold text-xs">-</button>
+              <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+              <button onclick="changeQuantity(${idx}, 1)" class="w-6 h-6 rounded-lg bg-stone-100 hover:bg-stone-200 font-bold text-xs">+</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById("cartSubtotal").innerText = `₹${subtotal}`;
+      document.getElementById("cartGrandTotal").innerText = `₹${grandTotal}`;
+      
+      if (appliedDiscount > 0) {
+        document.getElementById("discountRow").classList.remove("hidden");
+        document.getElementById("cartDiscountAmt").innerText = `-₹${appliedDiscount}`;
+      } else {
+        document.getElementById("discountRow").classList.add("hidden");
+      }
+    }
+
+    function changeQuantity(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    // Toggle Cart Drawer Modal
+    function toggleCartModal(open) {
+      const modal = document.getElementById("cartModal");
+      const drawer = document.getElementById("cartDrawerContent");
+      if (open) {
+        modal.classList.remove("hidden");
+        setTimeout(() => drawer.classList.remove("translate-x-full"), 10);
+      } else {
+        drawer.classList.add("translate-x-full");
+        setTimeout(() => modal.classList.add("hidden"), 300);
+      }
+    }
+
+    // Apply Promo Code
+    function applyPromoCode() {
+      const code = document.getElementById("promoCodeInput").value.trim().toUpperCase();
+      const msgEl = document.getElementById("promoMessage");
+      
+      if (code === "LAZIZ50") {
+        appliedDiscount = 50;
+        msgEl.innerText = "🎉 Promo code LAZIZ50 applied successfully! You saved ₹50.";
+        msgEl.classList.remove("hidden");
+        updateCartUI();
+      } else if (code === "LAZIZ20") {
+        appliedDiscount = 20;
+        msgEl.innerText = "🎉 Promo code LAZIZ20 applied successfully! You saved ₹20.";
+        msgEl.classList.remove("hidden");
+        updateCartUI();
+      } else {
+        msgEl.innerText = "❌ Invalid promo code. Try 'LAZIZ50'";
+        msgEl.classList.remove("hidden");
+        msgEl.className = "text-[11px] font-medium text-rose-600";
+      }
+    }
+
+    // Checkout Order (WhatsApp or Direct Call)
+    function checkoutOrder(type) {
+      if (cart.length === 0) {
+        showToast("Your tray is empty!");
+        return;
+      }
+
+      const name = document.getElementById("customerName").value.trim();
+      const phone = document.getElementById("customerPhone").value.trim();
+      const address = document.getElementById("customerAddress").value.trim();
+
+      if (!name || !phone || !address) {
+        showToast("Please fill in Name, Phone & Delivery Address!");
+        return;
+      }
+
+      const subtotal = cart.reduce((acc, item) => acc + (item.unitPrice * item.quantity), 0);
+      const grandTotal = Math.max(0, subtotal - appliedDiscount);
+
+      let orderText = `🍕 *NEW ORDER - LAZIZ PIZZA (SIRADU)* 🍕\n\n`;
+      orderText += `👤 *Customer:* ${name}\n`;
+      orderText += `📞 *Phone:* ${phone}\n`;
+      orderText += `📍 *Address:* ${address}\n\n`;
+      orderText += `*Items Ordered:*\n`;
+
+      cart.forEach((item, idx) => {
+        orderText += `${idx + 1}. ${item.name} (${item.size}) x ${item.quantity} = ₹${item.unitPrice * item.quantity}\n`;
+        if (item.addons.length > 0) orderText += `   + Addons: ${item.addons.join(', ')}\n`;
+        if (item.instructions) orderText += `   Note: ${item.instructions}\n`;
+      });
+
+      orderText += `\nSubtotal: ₹${subtotal}\n`;
+      if (appliedDiscount > 0) orderText += `Discount: -₹${appliedDiscount}\n`;
+      orderText += `*Grand Total: ₹${grandTotal}*\n`;
+      orderText += `\n*Payment Mode:* Cash on Delivery / UPI`;
+
+      if (type === 'whatsapp') {
+        const encoded = encodeURIComponent(orderText);
+        window.open(`https://wa.me/919399979336?text=${encoded}`, '_blank');
+      } else {
+        window.location.href = `tel:9399979336`;
+      }
+    }
+
+    // Toast Notification helper
+    function showToast(message) {
+      const toast = document.getElementById("toastNotification");
+      document.getElementById("toastMessage").innerText = message;
+      toast.classList.remove("translate-y-20", "opacity-0");
+      setTimeout(() => {
+        toast.classList.add("translate-y-20", "opacity-0");
+      }, 3000);
+    }
+
+    function resetView(e) {
+      if(e) e.preventDefault();
+      switchCategory('VEG PIZZA');
+    }
+  </script>
+
+</body>
+</html>
